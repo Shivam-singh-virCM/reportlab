@@ -21,7 +21,7 @@ from reportlab import rl_config
 from reportlab.lib.utils import import_zlib, open_for_read, makeFileName, isSeq, isBytes, isUnicode, _digester, isStr, bytestr, isPy3, annotateException
 from reportlab.lib.rl_accel import escapePDF, fp_str, asciiBase85Encode, asciiBase85Decode
 from reportlab.pdfbase import pdfmetrics
-from hashlib import md5
+from hashlib import md5,sha256
 
 from sys import platform
 from sys import version_info
@@ -146,7 +146,7 @@ class PDFDocument(PDFObject):
         self.setCompression(compression)
         self._pdfVersion = pdfVersion
         # signature for creating PDF ID
-        sig = self.signature = md5()
+        sig = self.signature = sha256()
         sig.update(b"a reportlab document")
         if not self.invariant:
             cat = _getTimeStamp()
